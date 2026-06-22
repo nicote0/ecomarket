@@ -2,249 +2,239 @@
   "info": {
     "_postman_id": "d671f1f6-bb9e-4923-b1e5-18d3d646e412",
     "name": "EcoMarket",
+    "description": "Colección de endpoints de la API REST de EcoMarket. Usa la variable {{baseUrl}} (http://localhost:8080). Orden sugerido para la demo: crear producto -> crear carrito -> agregar item -> confirmar orden.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "56020094",
-    "_collection_link": "https://go.postman.co/collection/56020094-d671f1f6-bb9e-4923-b1e5-18d3d646e412?source=collection_link"
+    "_exporter_id": "56020094"
   },
   "item": [
     {
-      "name": "Listar Productos",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "auth": {
-          "type": "noauth"
+      "name": "Productos",
+      "item": [
+        {
+          "name": "Crear Producto",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"Shampoo Sólido Natural Premium\",\n    \"descripcion\": \"Shampoo sin plástico, elaborado con ingredientes naturales\",\n    \"precio\": 1800.00,\n    \"stock\": 45,\n    \"categoria\": \"Higiene\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            },
+            "description": "Crea un nuevo producto. Responde 201 Created. Si falta un campo obligatorio o el precio es <= 0, responde 400."
+          },
+          "response": []
         },
-        "method": "GET",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"nombre\": \"Shampoo Sólido Natural Premium\",\r\n    \"descripcion\": \"Shampoo sin plástico, elaborado con ingredientes naturales\",\r\n    \"precio\": 1800.00,\r\n    \"stock\": 45,\r\n    \"categoria\": \"Higiene\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+        {
+          "name": "Listar Productos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos"]
+            },
+            "description": "Devuelve el catálogo completo de productos. Responde 200 OK."
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/api/productos",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "productos"
-          ]
+        {
+          "name": "Ver Producto por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "1"]
+            },
+            "description": "Devuelve un producto por su id. Responde 200 OK, o 404 si no existe."
+          },
+          "response": []
+        },
+        {
+          "name": "Modificar Producto",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nombre\": \"Shampoo Sólido Natural Premium\",\n    \"descripcion\": \"Versión mejorada, mayor duración\",\n    \"precio\": 2100.00,\n    \"stock\": 50,\n    \"categoria\": \"Higiene\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "1"]
+            },
+            "description": "Modifica un producto existente. Responde 200 OK, o 404 si no existe."
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Producto",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/productos/10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "productos", "10"]
+            },
+            "description": "Elimina un producto del catálogo. Responde 204 No Content, o 404 si no existe."
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     },
     {
-      "name": "Ver producto por ID",
-      "request": {
-        "auth": {
-          "type": "noauth"
+      "name": "Carrito",
+      "item": [
+        {
+          "name": "Crear Carrito",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/carritos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "carritos"]
+            },
+            "description": "Crea un carrito vacío. Responde 201 Created con el id del carrito."
+          },
+          "response": []
         },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/productos/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "productos",
-            "1"
-          ]
+        {
+          "name": "Agregar Item al Carrito",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"productoId\": 1,\n    \"cantidad\": 2\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/carritos/1/items",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "carritos", "1", "items"]
+            },
+            "description": "Agrega un producto al carrito. Si el producto ya está, suma la cantidad. Responde 200 OK, 404 si el carrito o producto no existen, o 400 si la cantidad es inválida."
+          },
+          "response": []
+        },
+        {
+          "name": "Ver Carrito",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/carritos/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "carritos", "1"]
+            },
+            "description": "Devuelve el carrito con sus ítems. Responde 200 OK, o 404 si no existe."
+          },
+          "response": []
+        },
+        {
+          "name": "Modificar Item del Carrito",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cantidad\": 5\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/carritos/1/items/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "carritos", "1", "items", "1"]
+            },
+            "description": "Cambia la cantidad de un ítem del carrito. Responde 200 OK, 404 si el carrito no existe, o 400 si la cantidad es inválida."
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Item del Carrito",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/carritos/1/items/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "carritos", "1", "items", "1"]
+            },
+            "description": "Elimina un ítem del carrito. Responde 200 OK con el carrito actualizado, o 404 si el carrito no existe."
+          },
+          "response": []
         }
-      },
-      "response": []
+      ]
     },
     {
-      "name": "Modificar un producto",
-      "request": {
-        "auth": {
-          "type": "noauth"
+      "name": "Ordenes",
+      "item": [
+        {
+          "name": "Confirmar Orden",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"mensaje\": \"Por favor enviar en horario de la tarde\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ordenes/confirmar/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ordenes", "confirmar", "1"]
+            },
+            "description": "Confirma el carrito como una orden de compra (registra fecha/hora y total). El mensaje es opcional. Responde 201 Created, 404 si el carrito no existe, o 400 si el carrito está vacío."
+          },
+          "response": []
         },
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"nombre\": \"Shampoo Sólido Natural Premium\",\r\n    \"descripcion\": \"Shampoo sin plástico, elaborado con ingredientes naturales\",\r\n    \"precio\": 1800.00,\r\n    \"stock\": 45,\r\n    \"categoria\": \"Higiene\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+        {
+          "name": "Listar Órdenes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ordenes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ordenes"]
+            },
+            "description": "Devuelve el historial de órdenes realizadas. Responde 200 OK."
+          },
+          "response": []
         },
-        "url": {
-          "raw": "http://localhost:8080/api/productos/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "productos",
-            "1"
-          ]
+        {
+          "name": "Ver Orden por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/ordenes/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ordenes", "1"]
+            },
+            "description": "Devuelve una orden por su id. Responde 200 OK, o 404 si no existe."
+          },
+          "response": []
         }
-      },
-      "response": []
-    },
+      ]
+    }
+  ],
+  "variable": [
     {
-      "name": "Crear Carrito",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/carritos",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "carritos"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Agregar el producto al carrito",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"productoId\": 1,\r\n    \"cantidad\": 2\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/carritos/1/items",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "carritos",
-            "1",
-            "items"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Ver Carrito",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/carritos/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "carritos",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Confirmar orden",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"mensaje\": \"Por favor enviar en horario de la tarde\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8080/api/ordenes/confirmar/1",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "ordenes",
-            "confirmar",
-            "1"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Ver Historial de Ordenes",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8080/api/ordenes",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8080",
-          "path": [
-            "api",
-            "ordenes"
-          ]
-        }
-      },
-      "response": []
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
     }
   ]
 }

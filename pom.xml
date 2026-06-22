@@ -11,8 +11,8 @@
 	<groupId>com.ecomarket</groupId>
 	<artifactId>ecomarket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>ecomarket</name>
+	<description>API REST de EcoMarket - Plataforma de comercio electronico sostenible</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -37,6 +37,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<dependency>

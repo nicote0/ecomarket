@@ -1,10 +1,13 @@
 package com.ecomarket.ecomarket.controller;
 
+import com.ecomarket.ecomarket.dto.AgregarItemRequest;
+import com.ecomarket.ecomarket.dto.ModificarItemRequest;
 import com.ecomarket.ecomarket.model.Carrito;
 import com.ecomarket.ecomarket.service.CarritoService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/carritos")
@@ -18,8 +21,9 @@ public class CarritoController {
     }
 
     @PostMapping
-    public Carrito crear() {
-        return carritoService.crearCarrito();
+    public ResponseEntity<Carrito> crear() {
+        Carrito carrito = carritoService.crearCarrito();
+        return ResponseEntity.status(HttpStatus.CREATED).body(carrito);
     }
 
     @GetMapping("/{id}")
@@ -32,10 +36,8 @@ public class CarritoController {
     @PostMapping("/{id}/items")
     public ResponseEntity<Carrito> agregarItem(
             @PathVariable Long id,
-            @RequestBody Map<String, Object> body) {
-        Long productoId = Long.valueOf(body.get("productoId").toString());
-        Integer cantidad = Integer.valueOf(body.get("cantidad").toString());
-        return carritoService.agregarItem(id, productoId, cantidad)
+            @Valid @RequestBody AgregarItemRequest body) {
+        return carritoService.agregarItem(id, body.getProductoId(), body.getCantidad())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -44,9 +46,8 @@ public class CarritoController {
     public ResponseEntity<Carrito> modificarItem(
             @PathVariable Long id,
             @PathVariable Long itemId,
-            @RequestBody Map<String, Object> body) {
-        Integer cantidad = Integer.valueOf(body.get("cantidad").toString());
-        return carritoService.modificarItem(id, itemId, cantidad)
+            @Valid @RequestBody ModificarItemRequest body) {
+        return carritoService.modificarItem(id, itemId, body.getCantidad())
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

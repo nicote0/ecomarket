@@ -1,11 +1,12 @@
 package com.ecomarket.ecomarket.controller;
 
+import com.ecomarket.ecomarket.dto.ConfirmarOrdenRequest;
 import com.ecomarket.ecomarket.model.Orden;
 import com.ecomarket.ecomarket.service.OrdenService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/ordenes")
@@ -21,10 +22,10 @@ public class OrdenController {
     @PostMapping("/confirmar/{carritoId}")
     public ResponseEntity<Orden> confirmar(
             @PathVariable Long carritoId,
-            @RequestBody Map<String, String> body) {
-        String mensaje = body.getOrDefault("mensaje", "");
+            @RequestBody(required = false) ConfirmarOrdenRequest body) {
+        String mensaje = (body != null && body.getMensaje() != null) ? body.getMensaje() : "";
         return ordenService.confirmarOrden(carritoId, mensaje)
-                .map(ResponseEntity::ok)
+                .map(orden -> ResponseEntity.status(HttpStatus.CREATED).body(orden))
                 .orElse(ResponseEntity.notFound().build());
     }
 

@@ -2,7 +2,9 @@ package com.ecomarket.ecomarket.service;
 
 import com.ecomarket.ecomarket.model.*;
 import com.ecomarket.ecomarket.repository.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,12 @@ public class OrdenService {
 
     public Optional<Orden> confirmarOrden(Long carritoId, String mensaje) {
         return carritoRepository.findById(carritoId).map(carrito -> {
+
+            // No se puede confirmar una orden a partir de un carrito vacío
+            if (carrito.getItems().isEmpty()) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "No se puede confirmar una orden con el carrito vacío");
+            }
 
             // Copiamos los ítems en lugar de reutilizar la misma lista
             List<ItemCarrito> itemsCopia = new ArrayList<>();
