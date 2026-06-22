@@ -1,7 +1,10 @@
 # EcoMarket
 
-Plataforma de comercio electrónico sostenible. API REST desarrollada con Spring Boot
-para el TP Integrador de Taller de Construcción de Software (INF243).
+Plataforma de comercio electrónico sostenible. Aplicación full‑stack desarrollada
+para el TP Integrador de Taller de Construcción de Software (INF243):
+
+- **Backend**: API REST con Spring Boot + Spring Data JPA + MySQL (carpeta raíz).
+- **Frontend**: React + Vite que consume la API (carpeta [`frontend/`](frontend/)).
 
 ## Integrantes
 - Rinaldi, Nicolás — 45403417
@@ -64,3 +67,22 @@ La colección de Postman con todos los endpoints está en `EcoMarket.postman_col
 ## Probar la API con Postman
 Importar `EcoMarket.postman_collection.json`. Orden sugerido para una demo completa:
 crear producto → crear carrito → agregar ítem → ver carrito → confirmar orden → ver historial.
+
+## Cómo ejecutar el frontend (React)
+
+Con el backend corriendo en http://localhost:8080:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+La aplicación queda disponible en http://localhost:5173 y consume la API del backend.
+Más detalles en [`frontend/README.md`](frontend/README.md).
+
+## Levantar todo (resumen)
+
+1. MySQL en ejecución con la base `ecomarket_db`.
+2. Backend: `mvnw.cmd spring-boot:run` (puerto 8080).
+3. Frontend: `cd frontend && npm install && npm run dev` (puerto 5173).
