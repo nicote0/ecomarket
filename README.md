@@ -6,6 +6,11 @@ para el TP Integrador de Taller de Construcción de Software (INF243):
 - **Backend**: API REST con Spring Boot + Spring Data JPA + MySQL (carpeta raíz).
 - **Frontend**: React + Vite que consume la API (carpeta [`frontend/`](frontend/)).
 
+## Entregables
+- **Informe técnico**: [`informe/Informe_EcoMarket.pdf`](informe/Informe_EcoMarket.pdf)
+- **Video demo** (2:50): [`video/EcoMarket_demo.mp4`](video/EcoMarket_demo.mp4)
+- **Colección Postman**: [`EcoMarket.postman_collection.json`](EcoMarket.postman_collection.json)
+
 ## Integrantes
 - Rinaldi, Nicolás — 45403417
 - Aguilar, Esteban — 46307516
