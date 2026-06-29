@@ -8,7 +8,7 @@ para el TP Integrador de Taller de Construcción de Software (INF243):
 
 ## Entregables
 - **Informe técnico**: [`informe/Informe_EcoMarket.pdf`](informe/Informe_EcoMarket.pdf)
-- **Video demo** (2:50): [`video/EcoMarket_demo.mp4`](video/EcoMarket_demo.mp4)
+- **Video demo** (2:50): [ver en Google Drive](https://drive.google.com/file/d/1bs4Per0mcM3YoNcKgzHGaTE1KOd9JrOt/view?usp=sharing) · también en [`video/EcoMarket_demo.mp4`](video/EcoMarket_demo.mp4)
 - **Colección Postman**: [`EcoMarket.postman_collection.json`](EcoMarket.postman_collection.json)
 
 ## Integrantes
